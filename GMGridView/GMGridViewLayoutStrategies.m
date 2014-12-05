@@ -332,19 +332,18 @@
 
 - (NSRange)rangeOfPositionsInBoundsFromOffset:(CGPoint)offset
 {
-    CGPoint contentOffset = CGPointMake(MAX(0, offset.x), 
-                                        MAX(0, offset.y));
-    
-    CGFloat itemWidth = self.itemSize.width + self.itemSpacing;
-    
-    CGFloat firstCol = MAX(0, (int)(contentOffset.x / itemWidth) - 1);
-    
-    CGFloat lastCol = ceil((contentOffset.x + self.gridBounds.size.width) / itemWidth);
-    
-    NSInteger firstPosition = firstCol * self.numberOfItemsPerColumn;
-    NSInteger lastPosition  = ((lastCol + 1) * self.numberOfItemsPerColumn);
-    
-    return NSMakeRange(firstPosition, (lastPosition - firstPosition));
+	const CGFloat itemWidth = (self.itemSize.width + self.itemSpacing);
+	
+	const CGFloat leftDistance = (offset.x - _minEdgeInsets.left);
+	const CGFloat rightDistance = (leftDistance + self.gridBounds.size.width);
+
+	const NSUInteger firstCol = floorf(MAX(0, leftDistance) / itemWidth);
+	const NSUInteger lastCol = floorf(rightDistance / itemWidth);
+	
+	const NSUInteger firstPosition = (firstCol * self.numberOfItemsPerColumn);
+	const NSUInteger lastPosition = ((lastCol + 1) * self.numberOfItemsPerColumn);
+	
+	return NSMakeRange(firstPosition, (lastPosition - firstPosition));
 }
 
 @end
