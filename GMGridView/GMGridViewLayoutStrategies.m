@@ -218,9 +218,10 @@
 - (NSRange)rangeOfPositionsInBoundsFromOffset:(CGPoint)offset
 {
 	const CGFloat itemHeight = (self.itemSize.height + self.itemSpacing);
+	const CGFloat margin = roundf(itemHeight / 2);
 	
-	const CGFloat topDistance = (offset.y - _minEdgeInsets.top);
-	const CGFloat bottomDistance = (topDistance + self.gridBounds.size.height);
+	const CGFloat topDistance = (offset.y - _minEdgeInsets.top - margin);
+	const CGFloat bottomDistance = (topDistance + self.gridBounds.size.height + (margin * 2));
 
 	const NSUInteger firstRow = floorf(MAX(0, topDistance) / itemHeight);
 	const NSUInteger lastRow = floorf(bottomDistance / itemHeight);
@@ -333,9 +334,10 @@
 - (NSRange)rangeOfPositionsInBoundsFromOffset:(CGPoint)offset
 {
 	const CGFloat itemWidth = (self.itemSize.width + self.itemSpacing);
+	const CGFloat margin = roundf(itemWidth / 2);
 	
-	const CGFloat leftDistance = (offset.x - _minEdgeInsets.left);
-	const CGFloat rightDistance = (leftDistance + self.gridBounds.size.width);
+	const CGFloat leftDistance = (offset.x - _minEdgeInsets.left - margin);
+	const CGFloat rightDistance = (leftDistance + self.gridBounds.size.width + (margin * 2));
 
 	const NSUInteger firstCol = floorf(MAX(0, leftDistance) / itemWidth);
 	const NSUInteger lastCol = floorf(rightDistance / itemWidth);
