@@ -1497,6 +1497,8 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 {
     CGPoint previousContentOffset = self.contentOffset;
     
+    [self setSubviewsCacheAsInvalid];
+
     [[self itemSubviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop)
     {
         if ([obj isKindOfClass:[GMGridViewCell class]]) 
